@@ -26,9 +26,24 @@ class StartingStage extends Stage {
 
     public function onQuit(Session $session): void {
         $this->onSessionQuit($session);
-
-        if(count($this->game->getPlayers()) < ($this->game->getMap()->getMaxCapacity() / 2)) {
-            $this->game->setStage(new WaitingStage());
+        $map = $this->game->getMap();
+        $count = count($this->game->getPlayers());
+        switch (GameUtils::getMode($map->getPlayersPerTeam())) {
+            case "Solo":
+                if ($count < ($map->getMaxCapacity() / 4)) {
+                    $this->game->setStage(new WaitingStage());
+                }
+                break;
+            case "Duos":
+                if ($count < ($map->getMaxCapacity() / 4)) {
+                    $this->game->setStage(new WaitingStage());
+                }
+                break;
+            case "Squads":
+                if ($count < ($map->getMaxCapacity() / 2)) {
+                    $this->game->setStage(new WaitingStage());
+                }
+                break;
         }
     }
 
