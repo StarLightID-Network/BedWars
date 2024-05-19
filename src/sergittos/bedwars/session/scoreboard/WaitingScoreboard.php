@@ -21,14 +21,12 @@ class WaitingScoreboard extends Scoreboard {
         $stage = $game->getStage();
         return [
             10 => " ",
-            9 => "{WHITE}Map: {GREEN}" . $map->getName(),
-            8 => "{WHITE}Players: {GREEN}" . $game->getPlayersCount() . "/" . $map->getMaxCapacity(),
+            9 => "{YELLOW}Map: {GREEN}" . $map->getName(),
+            8 => "{YELLOW}Players: {GREEN}" . $game->getPlayersCount() . "/" . $map->getMaxCapacity(),
             7 => "  ",
             6 => !$stage instanceof StartingStage ? "{WHITE}Waiting..." : "{WHITE}Starting in {GREEN}" . $stage->getCountdown() . "s",
             5 => "   ",
-            4 => "{WHITE}Mode: {GREEN}" . GameUtils::getMode($map->getPlayersPerTeam()),
-            3 => "{WHITE}Version: {GRAY}v" . ConfigGetter::getVersion()
+            4 => "{YELLOW}Mode: {GREEN}" . GameUtils::getMode($map->getPlayersPerTeam()),
         ];
     }
-
 }

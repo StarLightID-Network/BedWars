@@ -47,7 +47,7 @@ class SpawnProtectionListener implements Listener {
     }
 
     private function checkWorldProtection(Player $player, Cancellable $cancellable): void {
-        if($player->getGamemode() !== GameMode::CREATIVE and $player->getWorld() === Server::getInstance()->getWorldManager()->getDefaultWorld()) {
+        if($player->getGamemode() !== GameMode::CREATIVE() and $player->getWorld() === Server::getInstance()->getWorldManager()->getDefaultWorld()) {
             $cancellable->cancel();
         }
     }

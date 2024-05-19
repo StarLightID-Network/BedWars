@@ -36,7 +36,12 @@ class WaitingListener implements Listener {
 
     public function onReceiveDamage(EntityDamageEvent $event): void {
         $entity = $event->getEntity();
+        $cause = $event->getCause();
         if($entity instanceof Player and $this->checkWorld($entity)) {
+            if ($cause === EntityDamageEvent::CAUSE_VOID) {
+                $entity->teleport($entity->getWorld()->getSafeSpawn());
+                $event->cancel();
+            }
             $event->cancel();
         }
     }
@@ -45,5 +50,4 @@ class WaitingListener implements Listener {
         $session = SessionFactory::getSession($player);
         return $session !== null and $session->isPlaying() and $session->getGame()->getMap()->getWaitingWorld() === $player->getWorld();
     }
-
 }

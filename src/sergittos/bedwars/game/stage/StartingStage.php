@@ -18,7 +18,7 @@ class StartingStage extends Stage {
         onQuit as onSessionQuit;
     }
 
-    private int $countdown = 10;
+    private int $countdown = 30;
 
     public function getCountdown(): int {
         return $this->countdown;
@@ -47,18 +47,49 @@ class StartingStage extends Stage {
         }
     }
 
+    // public function onJoin(Session $session): void
+    // {
+    //     $map = $this->game->getMap();
+    //     $count = count($this->game->getPlayers());
+    //     switch (GameUtils::getMode($map->getPlayersPerTeam())) {
+    //         case "Solo":
+    //             if ($count >= ($map->getMaxCapacity() / 2)) {
+    //                 if ($this->countdown > 15) {
+    //                     $this->countdown = 15;
+    //                 }
+    //             }
+    //             break;
+    //         case "Duos":
+    //             if ($count >= ($map->getMaxCapacity() / 2)) {
+    //                 if ($this->countdown > 15) {
+    //                     $this->countdown = 15;
+    //                 }
+    //             }
+    //             break;
+    //         case "Squads":
+    //             if ($count >= ($map->getMaxCapacity() / 2 * 1.5)) {
+    //                 if ($this->countdown > 15) {
+    //                     $this->countdown = 15;
+    //                 }
+    //             }
+    //             break;
+    //     }
+    // }
+
     public function tick(): void {
         if($this->countdown <= 0) {
             $this->game->setStage(new PlayingStage());
         } elseif($this->countdown <= 5) {
             $this->broadcastCountdownTitle();
         }
-        if($this->countdown > 0) {
+        if($this->countdown > 0 && $this->countdown < 11) {
             $this->game->broadcastMessage($this->getStartingMessage());
         }
         if($this->countdown === 5) {
             $this->game->setupWorld();
         } elseif($this->countdown === 10) {
+            $this->broadcastCountdownTitle();
+        } elseif($this->countdown === 15) {
             $this->broadcastCountdownTitle();
         }
         $this->game->updateScoreboards();
@@ -80,5 +111,4 @@ class StartingStage extends Stage {
         $this->game->broadcastTitle(GameUtils::getColoredTitleNumber($this->countdown));
         $this->game->broadcastSound(new ClickSound());
     }
-
 }

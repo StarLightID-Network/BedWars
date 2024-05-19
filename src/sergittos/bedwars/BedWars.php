@@ -17,6 +17,7 @@ use pocketmine\utils\SingletonTrait;
 use pocketmine\world\World;
 use sergittos\bedwars\command\BedWarsCommand;
 use sergittos\bedwars\entity\PlayBedwarsEntity;
+use sergittos\bedwars\game\entity\misc\BridgeEgg;
 use sergittos\bedwars\game\entity\misc\Fireball;
 use sergittos\bedwars\game\entity\shop\ItemShopVillager;
 use sergittos\bedwars\game\entity\shop\UpgradesShopVillager;
@@ -107,6 +108,12 @@ class BedWars extends PluginBase {
         EntityFactory::getInstance()->register(Fireball::class, function(World $world, CompoundTag $nbt): Fireball {
             return new Fireball(EntityDataHelper::parseLocation($nbt, $world), null);
         }, ["bedwars:fireball"]);
+    }
+
+    private function registerBridgeEgg(): void {
+        EntityFactory::getInstance()->register(BridgeEgg::class, function(World $world, CompoundTag $nbt): BridgeEgg {
+            return new BridgeEgg(EntityDataHelper::parseLocation($nbt, $world), null);
+        }, ["bedwars:bridge_egg"]);
     }
 
     private function obtainProvider(): Provider {

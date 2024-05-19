@@ -16,7 +16,7 @@ use sergittos\bedwars\utils\ConfigGetter;
 
 abstract class Scoreboard {
 
-    private const TITLE = "{YELLOW}BED WARS";
+    private const TITLE = "{YELLOW}{BOLD}BED WARS";
 
     public function show(Session $session): void {
         if($session->isOnline()) {

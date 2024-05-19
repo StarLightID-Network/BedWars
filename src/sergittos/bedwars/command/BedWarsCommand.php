@@ -31,12 +31,24 @@ class BedWarsCommand extends Command implements PluginOwned {
         }
 
         $session = SessionFactory::getSession($sender);
-        if($session->isCreatingMap()) {
-            if($session->getMapSetup()->getStep() instanceof PreparingMapStep) {
-                $sender->sendForm(new SetupMapForm($session));
+        if (isset($args[0])) {
+            switch ($args[0]) {
+                case "random":
+                    if (isset ($args[1])) {
+                        if (is_int($args[1])) {
+                            BedWars::getInstance()->getGameManager()->findRandomGame((int) $args[1]);
+                        }
+                    }
+                    break;
             }
         } else {
-            $sender->sendForm(new BedwarsForm());
+            if($session->isCreatingMap()) {
+                if($session->getMapSetup()->getStep() instanceof PreparingMapStep) {
+                    $sender->sendForm(new SetupMapForm($session));
+                }
+            } else {
+                $sender->sendForm(new BedwarsForm());
+            }
         }
     }
 

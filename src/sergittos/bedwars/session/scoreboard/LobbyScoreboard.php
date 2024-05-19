@@ -19,5 +19,4 @@ class LobbyScoreboard extends Scoreboard {
             3 => "{WHITE}Total Wins: {GREEN}" . $session->getWins(),
         ];
     }
-
 }

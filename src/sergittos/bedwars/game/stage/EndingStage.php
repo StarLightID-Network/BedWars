@@ -28,7 +28,7 @@ class EndingStage extends Stage {
             $session->addCoins(140);
         }
 
-        $session->title($this->getTitle(), "", 0, $this->time * 20);
+        $session->title($this->getTitle(), $this->getSubTitle(), 0, $this->time * 20);
         $session->resetSettings();
     }
 
@@ -44,7 +44,10 @@ class EndingStage extends Stage {
     }
 
     private function getTitle(): string {
-        return $this->tie ? "{ORANGE}TIE!" : "{GOLD}VICTORY!";
+        return $this->tie ? "{ORANGE}TIE!" : "{BOLD}{GOLD}VICTORY!";
     }
 
+    private function getSubTitle(): string {
+        return $this->tie ? "{GRAY}You were 2 last man standing" : "{GRAY}You were the last man standing";
+    }
 }
